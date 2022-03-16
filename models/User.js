@@ -4,9 +4,6 @@ const {
 } = require('sequelize');
 const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
-const {
-  builtinModules
-} = require('module');
 
 // create User model
 class User extends Model {
