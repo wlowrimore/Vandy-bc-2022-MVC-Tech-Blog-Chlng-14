@@ -1,20 +1,25 @@
 const router = require('express').Router();
 const {
   Post,
-  User
+  User,
+  Comment
 } = require('../../models');
 
 // GET all POSTS
 router.get('/', (req, res) => {
   console.log('======================');
   Post.findAll({
-      attributes: ['id', 'post_url', 'title', 'created_at'],
       order: [
         ['created_at', 'DESC']
       ],
+      attributes: ['id', 'post_url', 'title', 'created_at'],
       include: [{
-        model: User,
-        attributes: ['username']
+        model: Comment,
+        attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+        include: {
+          model: User,
+          attributes: ['username']
+        }
       }]
     })
     .then(dbPostData => res.json(dbPostData))
@@ -66,19 +71,17 @@ router.post('/', (req, res) => {
     });
 });
 
-// UPDATE(PUT) A POST
+// UPDATE A POST
 router.put('/:id', (req, res) => {
-  Post.update({
-      title: req.body.title
-    }, {
+  Post.update(req.body, {
       where: {
         id: req.params.id
       }
     })
     .then(dbPostData => {
-      if (!dbPostData) {
+      if (!dbPostData[0]) {
         res.status(404).json({
-          message: 'No Post Found With This Id!'
+          message: 'No Post Found By This Id'
         });
         return;
       }
@@ -86,7 +89,7 @@ router.put('/:id', (req, res) => {
     })
     .catch(err => {
       console.log(err);
-      res.json(500).json(err);
+      res.status(500).json(err);
     });
 });
 
