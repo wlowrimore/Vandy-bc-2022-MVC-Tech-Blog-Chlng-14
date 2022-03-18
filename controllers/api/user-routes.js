@@ -1,5 +1,8 @@
 const router = require('express').Router();
 const {
+  nextTick
+} = require('process');
+const {
   Post
 } = require('../../models');
 const {
@@ -61,7 +64,7 @@ router.get('/:id', (req, res) => {
     });
 });
 
-// POST(create) a new user
+// SIGNUP ROUTE
 router.post('/', (req, res) => {
   User.create({
       username: req.body.username,
@@ -77,6 +80,10 @@ router.post('/', (req, res) => {
         res.json(dbUserData);
       });
     })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 // USER LOGIN ROUTE
@@ -88,55 +95,31 @@ router.post('/login', (req, res) => {
     }
   }).then(dbUserData => {
     if (!dbUserData) {
-      res.status(400).json({
-        message: 'No User With That Username Found!'
-      });
-      return;
+      res.render('/signup');
     }
+  });
 
-    // Verify User
-    const validPassword = dbUserData.checkPassword(req.body.password);
+  // Verify User
+  const validPassword = dbUserData.checkPassword(req.body.password);
 
-    if (!validPassword) {
-      res.status(400).json({
-        message: 'Incorrect Password!'
-      });
-      return;
-    }
-    req.session.save(() => {
-      req.session.user_id = dbUserData.id;
-      req.session.username = dbUserData.username;
-      req.session.loggedIn = true;
+  if (!validPassword) {
+    res.status(400).json({
+      message: 'Incorrect Password!'
+    });
+    return;
+  }
+  req.session.save(() => {
+    req.session.user_id = dbUserData.id;
+    req.session.username = dbUserData.username;
+    req.session.loggedIn = true;
 
-      res.json({
-        user: dbUserData,
-        message: 'You Are Now Logged In!'
-      });
+    res.json({
+      user: dbUserData,
+      message: 'You Are Now Logged In!'
     });
   });
 });
 
-// PUT(update) a users data
-// router.put('/:id', (req, res) => {
-//   User.update(req.body, {
-//       where: {
-//         id: req.params.id
-//       }
-//     })
-//     .then(dbUserData => {
-//       if (!dbUserData[0]) {
-//         res.status(404).json({
-//           message: 'No user found with this id'
-//         });
-//         return;
-//       }
-//       res.json(dbUserData);
-//     })
-//     .catch(err => {
-//       console.log(err);
-//       res.status(500).json(err);
-//     });
-// });
 
 // USER LOGOUT ROUTE
 router.post('/logout', (req, res) => {

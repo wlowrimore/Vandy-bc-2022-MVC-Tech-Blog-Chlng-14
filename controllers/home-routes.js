@@ -6,8 +6,9 @@ const {
   Comment
 } = require('../models');
 
+// GET all POSTS for homepage
 router.get('/', (req, res) => {
-  console.log(req.session);
+  console.log('========================');
   Post.findAll({
       attributes: [
         'id',
@@ -52,6 +53,16 @@ router.get('/login', (req, res) => {
   }
 
   res.render('login');
+});
+
+// LOGOUT
+router.get('/logout', (req, res) => {
+  if (!req.session.loggedIn) {
+    res.redirect('/');
+    return;
+  }
+
+  res.render('/');
 });
 
 module.exports = router;
