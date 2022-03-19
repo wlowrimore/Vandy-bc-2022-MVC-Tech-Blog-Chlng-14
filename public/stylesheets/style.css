@@ -54,6 +54,13 @@ button:hover {
   background-color: #366845;
 }
 
+.signup-link {
+  color: #6b6245;
+  font-size: 32px;
+  line-height: 2;
+  width: 8%;
+}
+
 .post-list {
   margin: 0;
   padding: 0;

@@ -21,9 +21,14 @@ async function loginFormHandler(event) {
     } else if (!response.ok) {
       document.location.replace('/signup');
     } else {
-      alert(response.statusText);
+      alert('Login Failed!');
     }
   }
-}
+};
 
-document.querySelector('.login-form').addEventListener('submit', loginFormHandler);
+
+
+document
+  .querySelector('.login-form')
+  .addEventListener('submit', loginFormHandler);
+

@@ -6,7 +6,7 @@ async function signupformHandler(event) {
   const password = document.querySelector('#password-signup').value.trim();
 
   if (username && email && password) {
-    const response = await fetch('/api/users', {
+    const response = await fetch('/api/users/signup', {
       method: 'post',
       body: JSON.stringify({
         username,
@@ -20,11 +20,13 @@ async function signupformHandler(event) {
 
     // check the response status
     if (response.ok) {
-      console.log('success');
+      document.location.replace('/');
     } else {
-      alert(response.statusText);
+      alert('Failed To Sign Up!');
     }
   }
-}
+};
 
-document.querySelector('.signup-form').addEventListener('submit', signupformHandler);
+document
+  .querySelector('#signup-form')
+  .addEventListener('submit', signupformHandler);
