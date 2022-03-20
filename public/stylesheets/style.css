@@ -23,6 +23,7 @@ a:hover {
 }
 
 .card {
+  margin-bottom: 12px;
   background-color: #e2e5e3;
   border: 4px solid #6b6245;
   border-radius: 6px;
@@ -119,6 +120,38 @@ header {
   flex-direction: column;
   align-items: flex-start;
   padding: 8px 3%;
+}
+
+.post-card {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 100%;
+  background-color: #e2e5e3;
+  border: 6px solid #6b6245;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.post-p {
+  font-size: 18px;
+  padding-left: 12px;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 4px;
+}
+.post-view {
+  color: #000;
+  font-size: 22px;
+  font-weight: bold;
+  padding: 8px 0 4px 12px;
+}
+
+.post-owner {
+  font-size: 13px;
+  font-weight: strong;
+  padding-left: 12px;
+  margin-bottom: -10px;
 }
 
 main {

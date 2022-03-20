@@ -4,6 +4,7 @@ const {
   User,
   Comment
 } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 // GET all POSTS
 router.get('/', (req, res) => {
@@ -12,10 +13,10 @@ router.get('/', (req, res) => {
       order: [
         ['created_at', 'DESC']
       ],
-      attributes: ['id', 'post_url', 'title', 'created_at'],
+      attributes: ['id', 'content', 'title', 'created_at'],
       include: [{
         model: Comment,
-        attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+        attributes: ['id', 'comment_text', 'content', 'user_id', 'created_at'],
         include: {
           model: User,
           attributes: ['username']
@@ -35,7 +36,7 @@ router.get('/:id', (req, res) => {
       where: {
         id: req.params.id
       },
-      attributes: ['id', 'post_url', 'title', 'created_at'],
+      attributes: ['id', 'content', 'title', 'created_at'],
       include: [{
         model: User,
         attributes: ['username']
@@ -58,10 +59,10 @@ router.get('/:id', (req, res) => {
 
 // CREATE(POST) a new POST
 router.post('/', (req, res) => {
-  // expects {title: '', post_url: '', user_id: -}
+  // expects {title: '', content: '', user_id: -}
   Post.create({
       title: req.body.title,
-      post_url: req.body.post_url,
+      content: req.body.content,
       user_id: req.body.user_id
     })
     .then(dbPostData => res.json(dbPostData))

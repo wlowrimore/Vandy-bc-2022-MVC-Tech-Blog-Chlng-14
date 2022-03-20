@@ -9,7 +9,7 @@ const {
   Comment
 } = require('../../models');
 
-// GET all users
+// GET all USERS
 router.get('/', (req, res) => {
   User.findAll({
       attributes: {
@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
     });
 });
 
-// GET single user
+// GET single USER
 router.get('/:id', (req, res) => {
   User.findOne({
       attributes: {
@@ -34,7 +34,7 @@ router.get('/:id', (req, res) => {
       },
       include: [{
           model: Post,
-          attributes: ['id', 'title', 'post_url', 'created_at']
+          attributes: ['id', 'title', 'content', 'created_at']
         },
         {
           model: Comment,
