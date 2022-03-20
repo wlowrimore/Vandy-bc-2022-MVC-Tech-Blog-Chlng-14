@@ -20,7 +20,7 @@ async function signupformHandler(event) {
 
     // check the response status
     if (response.ok) {
-      document.location.replace('/');
+      document.location.replace('/dashboard');
     } else {
       alert('Failed To Sign Up!');
     }
