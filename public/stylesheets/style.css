@@ -30,7 +30,7 @@ a:hover {
   padding: 12px 14px 0 14px;
 }
 
-.log-option {
+.form-title {
   display: flex;
   color: #e2e5e3;
   background-color: #6b6245;
@@ -131,6 +131,19 @@ header {
   border: 6px solid #6b6245;
   border-radius: 12px;
   margin-bottom: 12px;
+}
+
+/* Create Post Form */
+.create-post {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 100%;
+  background-color: #e2e5e3;
+  border: 6px solid #6b6245;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  padding: 0 12px 0 12px;
 }
 
 .post-p {
