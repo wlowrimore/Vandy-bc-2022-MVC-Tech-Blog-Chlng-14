@@ -1,12 +1,34 @@
+{{!-- section to create new post(s) --}}
+<section class="row">
+  <div class="column">
+    <h2>Create A New Post</h2>
+    <form class="new-post-form">
+      <div>
+        <label for="post-title">Title</label>
+        <input type="text" id="post-title" name="post-title" />
+      </div>
+      <div>
+        <label for="post-text">Content</label>
+        <textarea id="post-text" name="post-text"></textarea>
+      </div>
+      <button type="submit" class="button">CREATE</button>
+    </form>
+  </div>
+</section>
+
+{{!-- displays existing user's posts with edit option --}}
 {{#if posts.length}}
 <section>
   <h2>Your Posts</h2>
+  <ol>
     {{#each posts as |post|}}
-      {{> dashboard-postinfo post}}
+    <li>
+      {{> post-info post}}
+      <a href="/dashboard/edit/{{post.id}}" class="edit-link">EDIT POST</a>
+    </li>
     {{/each}}
+  </ol>
 </section>
 {{/if}}
-
-<button type="submit" class="btn"><a href="/dashboard/new">+ New Post</a></button>
 
 <script src="/javascript/add-post.js"></script>
