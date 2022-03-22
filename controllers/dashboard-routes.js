@@ -90,7 +90,7 @@ router.get('/update/:id', withAuth, (req, res) => {
       res.status(500).json(err);
     });
 })
-router.get('/new', (req, res) => {
+router.get('/', (req, res) => {
   res.render('new-post');
 });
 

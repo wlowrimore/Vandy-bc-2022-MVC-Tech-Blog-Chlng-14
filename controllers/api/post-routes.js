@@ -4,24 +4,35 @@ const {
   User,
   Comment
 } = require('../../models');
+const sequelize = require('../../config/connection');
 const withAuth = require('../../utils/auth');
 
 // GET all POSTS
 router.get('/', (req, res) => {
   console.log('======================');
   Post.findAll({
+      attributes: [
+        'id',
+        'content',
+        'title',
+        'created_at',
+      ],
       order: [
         ['created_at', 'DESC']
       ],
-      attributes: ['id', 'content', 'title', 'created_at'],
       include: [{
-        model: Comment,
-        attributes: ['id', 'comment_text', 'user_id', 'created_at'],
-        include: {
           model: User,
           attributes: ['username']
+        },
+        {
+          model: Comment,
+          attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+          include: {
+            model: User,
+            attributes: ['username']
+          }
         }
-      }]
+      ]
     })
     .then(dbPostData => res.json(dbPostData))
     .catch(err => {
@@ -38,9 +49,18 @@ router.get('/:id', (req, res) => {
       },
       attributes: ['id', 'content', 'title', 'created_at'],
       include: [{
-        model: User,
-        attributes: ['username']
-      }]
+          model: User,
+          attributes: ['username']
+        },
+        {
+          model: Comment,
+          attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+          include: {
+            model: User,
+            attributes: ['username']
+          }
+        }
+      ]
     })
     .then(dbPostData => {
       if (!dbPostData) {
@@ -59,7 +79,7 @@ router.get('/:id', (req, res) => {
 
 // CREATE(POST) a new POST
 router.post('/', withAuth, (req, res) => {
-  // expects {title: '', content: '', user_id: -}
+  // expects {title: '', content: '', user_id: ''}
   Post.create({
       title: req.body.title,
       content: req.body.content,
@@ -73,14 +93,14 @@ router.post('/', withAuth, (req, res) => {
 });
 
 // UPDATE A POST
-router.put('/:id', (req, res) => {
+router.put('/:id', withAuth, (req, res) => {
   Post.update(req.body, {
       where: {
         id: req.params.id
       }
     })
     .then(dbPostData => {
-      if (!dbPostData[0]) {
+      if (!dbPostData) {
         res.status(404).json({
           message: 'No Post Found By This Id'
         });
@@ -95,7 +115,7 @@ router.put('/:id', (req, res) => {
 });
 
 // DETETE a POST
-router.delete('/:id', (req, res) => {
+router.delete('/:id', withAuth, (req, res) => {
   Post.destroy({
       where: {
         id: req.params.id
