@@ -7,7 +7,7 @@ const {
 } = require('../models');
 const withAuth = require('../utils/auth');
 
-// SHOW all POSTS
+// GET all POSTS on DASHBOARD page
 router.get('/', withAuth, (req, res) => {
   Post.findAll({
       where: {
@@ -16,7 +16,7 @@ router.get('/', withAuth, (req, res) => {
       attributes: [
         'id',
         'title',
-        'content',
+        'post_text',
         'created_at'
       ],
       include: [{
@@ -49,12 +49,12 @@ router.get('/', withAuth, (req, res) => {
 });
 
 // UPDATE(EDIT) a POST
-router.get('/update/:id', withAuth, (req, res) => {
+router.get('/edit/:id', withAuth, (req, res) => {
   Post.findOne({
       where: {
         id: req.params.id
       },
-      attributes: ['id', 'title', 'content', 'created_at'],
+      attributes: ['id', 'title', 'post_text', 'created_at'],
       include: [{
           model: User,
           attributes: ['username']
@@ -71,7 +71,7 @@ router.get('/update/:id', withAuth, (req, res) => {
     })
     .then(dbPostData => {
       if (!dbPostData) {
-        res.status(400).json({
+        res.status(404).json({
           message: 'No Post Found By This Id!'
         });
         return;
@@ -80,7 +80,7 @@ router.get('/update/:id', withAuth, (req, res) => {
       const post = dbPostData.get({
         plain: true
       });
-      res.render('update-post', {
+      res.render('edit-post', {
         post,
         loggedIn: true
       });
@@ -89,9 +89,6 @@ router.get('/update/:id', withAuth, (req, res) => {
       console.log(err);
       res.status(500).json(err);
     });
-})
-router.get('/', (req, res) => {
-  res.render('new-post');
 });
 
 module.exports = router;

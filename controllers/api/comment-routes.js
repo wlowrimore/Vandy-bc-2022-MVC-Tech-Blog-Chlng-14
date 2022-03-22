@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 });
 
 // GET a SINGLE COMMENT
-router.get('/:id', (req, res) => {
+router.get('/:id', withAuth, (req, res) => {
   Comment.findAll({
       where: {
         id: req.params.id

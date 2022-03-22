@@ -1,13 +1,13 @@
 const router = require('express').Router();
 const {
-  Post
-} = require('../../models');
-const {
-  User
-} = require('../../models');
-const {
+  User,
+  Post,
   Comment
 } = require('../../models');
+const session = require('express-session');
+const myAuth = require('../../utils/auth');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
 
 // GET all USERS
 router.get('/', (req, res) => {
@@ -34,7 +34,7 @@ router.get('/:id', (req, res) => {
       },
       include: [{
           model: Post,
-          attributes: ['id', 'title', 'content', 'created_at']
+          attributes: ['id', 'title', 'post_text', 'created_at']
         },
         {
           model: Comment,
@@ -68,6 +68,7 @@ router.post('/', (req, res) => {
       email: req.body.email,
       password: req.body.password
     })
+    // SAVE USER's Credentials
     .then(dbUserData => {
       req.session.save(() => {
         req.session.user_id = dbUserData.id;
@@ -86,17 +87,19 @@ router.post('/', (req, res) => {
 
 // USER LOGIN ROUTE
 router.post('/login', (req, res) => {
+  // because the user's email is unique, we find them by email
   User.findOne({
       where: {
-        username: req.body.username
+        email: req.body.email
       }
     }).then(dbUserData => {
       if (!dbUserData) {
         res.status(400).json({
-          message: 'No User Found With That Username'
+          message: 'No User Found With That Email!'
         });
         return;
       }
+      // if user's data found, we verify their password
       const validPassword = dbUserData.checkPassword(req.body.password);
 
       if (!validPassword) {
@@ -105,6 +108,7 @@ router.post('/login', (req, res) => {
         });
         return;
       }
+      // if all goes well, we save their info and grant them access
       req.session.save(() => {
         req.session.user_id = dbUserData.id;
         req.session.username = dbUserData.username;
@@ -113,7 +117,7 @@ router.post('/login', (req, res) => {
 
         res.json({
           user: dbUserData,
-          message: 'You Are Now Logged In!'
+          message: 'You Have Successfully Logged In!'
         });
       });
     })
@@ -124,7 +128,7 @@ router.post('/login', (req, res) => {
 });
 
 // USER LOGOUT ROUTE
-router.post('/logout', (req, res) => {
+router.post('/logout', withAuth, (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
       res.status(204).end();
@@ -134,36 +138,26 @@ router.post('/logout', (req, res) => {
   }
 });
 
-router.put('/:id', (req, res) => {
-  User.update(req.body, {
-      individualHooks: true,
+// DELETE a USER
+router.delete('/:id', withAuth, (req, res) => {
+  User.destroy({
       where: {
         id: req.params.id
       }
     })
     .then(dbUserData => {
-      if (!dbUserData[0]) {
+      if (!dbUserData) {
         res.status(404).json({
-          message: 'No User Found With This Id'
+          message: 'No User Found By This Id!'
         });
         return;
       }
+      res.json(dbUserData);
     })
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
     });
-});
-
-router.get('/home', (req, res) => {
-  if (req.session.loggedIn) {
-    res.redirect('/');
-  } else {
-    if (!req.session.loggedIn) {
-      res.redirect('/login');
-    }
-  }
-  res.status(500).json(err);
 });
 
 module.exports = router;
