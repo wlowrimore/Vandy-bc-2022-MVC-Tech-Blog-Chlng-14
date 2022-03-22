@@ -17,18 +17,13 @@ async function loginFormHandler(event) {
     });
 
     if (response.ok) {
-      document.location.replace('/');
-    } else if (!response.ok) {
-      document.location.replace('/signup');
+      document.location.replace('/dashboard');
     } else {
-      alert('Login Failed!');
+      alert(result.message);
     }
   }
 };
 
-
-
 document
   .querySelector('.login-form')
   .addEventListener('submit', loginFormHandler);
-
