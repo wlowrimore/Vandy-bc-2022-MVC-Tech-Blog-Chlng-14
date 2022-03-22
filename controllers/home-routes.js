@@ -1,7 +1,4 @@
 const router = require('express').Router();
-const {
-  userInfo
-} = require('os');
 const sequelize = require('../config/connection');
 const {
   Post,
@@ -15,9 +12,12 @@ router.get('/', (req, res) => {
   Post.findAll({
       attributes: [
         'id',
-        'content',
+        'post_text',
         'title',
         'created_at'
+      ],
+      order: [
+        ['created_at', 'DESC']
       ],
       include: [{
           model: Comment,
@@ -59,10 +59,21 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
+// If no existing account, redirect to signup
 router.get('/signup', (req, res) => {
   res.render('signup');
 });
 
+// SIGN UP
+router.get('/signup', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/');
+    return;
+  }
+  res.render('signup');
+});
+
+// GET a SINGLE POST
 router.get('/post/:id', (req, res) => {
   Post.findOne({
       where: {
@@ -70,7 +81,7 @@ router.get('/post/:id', (req, res) => {
       },
       attributes: [
         'id',
-        'content',
+        'post_text',
         'title',
         'created_at'
       ],
@@ -98,51 +109,7 @@ router.get('/post/:id', (req, res) => {
       const post = dbPostData.get({
         plain: true
       });
-      console.log(post);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    })
-});
-
-router.get('/post-comments', (req, res) => {
-  Post.findOne({
-      where: {
-        id: req.params.id
-      },
-      attributes: [
-        'id',
-        'content',
-        'title',
-        'created_at'
-      ],
-      include: [{
-          model: Comment,
-          attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
-          include: {
-            model: User,
-            attributes: ['username']
-          }
-        },
-        {
-          model: User,
-          attributes: ['username']
-        }
-      ]
-    })
-    .then(dbPostData => {
-      if (!dbPostData) {
-        res.status(404).json({
-          message: 'No Post Found By This Id!'
-        });
-        return;
-      }
-      const post = dbPostData.get({
-        plain: true
-      });
-
-      res.render('posts-comments', {
+      res.render('single-post', {
         post,
         loggedIn: req.session.loggedIn
       });
@@ -150,17 +117,7 @@ router.get('/post-comments', (req, res) => {
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
-    });
-});
-
-// LOGOUT
-router.get('/logout', (req, res) => {
-  if (!req.session.loggedIn) {
-    res.redirect('/');
-    return;
-  }
-
-  res.render('/');
+    })
 });
 
 module.exports = router;

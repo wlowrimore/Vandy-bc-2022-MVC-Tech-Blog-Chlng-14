@@ -1,19 +1,19 @@
-{{#if posts.length}}
+{{> post-info post}}
 
-<ol class="post-list">
-  {{#each posts as |post|}}
-  <li>
-    <article class="post">
-      <div class="title">
-        {{post.title}}
-      </div>
-      <div class="meta">
-        {{comment}} by {{user.username}} on
-        {{created_at}}
-        |
-        <a href="/post/{{id}}">{{comments.length}} comment(s)</a>
-      </div>
-    </article>
-  </li>
-  {{/each}}
-</ol>
+{{#if loggedIn}}
+<form class="comment-form">
+  <div>
+    <textarea name="comment_text"></textarea>
+  </div>
+
+  <div>
+    <button type="submit">Add Comment</button>
+  </div>
+</form>
+{{/if}}
+
+{{> comments post.comments}}
+
+{{#if loggedIn}}
+<script src="/javascript/comment.js"></script>
+{{/if}}
