@@ -1,3 +1,18 @@
+{{!-- displays existing user's posts with edit option --}}
+{{#if posts.length}}
+<section class="existing-posts">
+  <h2>Your Posts</h2>
+  <ol class="existing-posts-list">
+    {{#each posts as |post|}}
+    <li class="">
+      {{> post-info post}}
+      <a href="/dashboard/edit/{{post.id}}" class="edit-link">EDIT POST</a>
+    </li><br>
+    {{/each}}
+  </ol>
+</section>
+{{/if}}
+
 {{!-- section to create new post(s) --}}
 <section class="row">
   <div class="column">
@@ -16,19 +31,6 @@
   </div>
 </section>
 
-{{!-- displays existing user's posts with edit option --}}
-{{#if posts.length}}
-<section class="existing-posts">
-  <h2>Your Posts</h2>
-  <ol class="existing-posts-list">
-    {{#each posts as |post|}}
-    <li>
-      {{> post-info post}}
-      <a href="/dashboard/edit/{{post.id}}" class="edit-link">EDIT POST</a>
-    </li><br>
-    {{/each}}
-  </ol>
-</section>
-{{/if}}
+
 
 <script src="/javascript/add-post.js"></script>

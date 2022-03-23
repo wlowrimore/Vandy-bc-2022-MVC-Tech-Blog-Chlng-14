@@ -6,6 +6,10 @@ async function editFormHandler(event) {
     window.location.toString().split('/').length - 1
   ];
 
+  // pull the post title and body
+  const title = document.querySelector('input[name="post-title"]').value;
+  const post_text = document.querySelector('textarea[name="post-text"]').value;
+
   // now, call the update route
   const response = await fetch(`/api/posts/${id}`, {
     method: 'PUT',
@@ -24,7 +28,7 @@ async function editFormHandler(event) {
   } else {
     alert(response.statusText);
   }
-};
+}
 
 document
   .querySelector('.edit-post-form')

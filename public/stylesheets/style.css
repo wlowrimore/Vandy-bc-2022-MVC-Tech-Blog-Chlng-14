@@ -19,6 +19,10 @@ body, html {
   flex-direction: column;
 }
 
+main {
+  margin: 12px 50px;
+}
+
 header {
   width: 100%;
   background-color: #6b6245;
@@ -51,9 +55,12 @@ a:hover {
 }
 
 .post {
+  background-color: #e2e5e3;
   padding: 12px;
   margin-bottom: 2%;
-  line-height: 150%;
+  /* line-height: 150%; */
+  border: 2px solid #6b6245;
+  border-radius: 5px;
 }
 
 .post .title {
@@ -69,19 +76,16 @@ a:hover {
 }
 
 .post p {
-  font-size: 18px;
+  font-size: 16px;
   padding-left: 12px;
   padding-bottom: 0;
   margin-top: 8px;
   margin-bottom: 4px;
-  background-color:#e2e5e3;
+  background-color:#ffffff;
   border: 1px solid #6b6245;
   border-radius: 5px;
 }
 
-li {
-  list-style-type: none;
-}
 button {
   color: #e2e5e3;
   font-weight: bold;
@@ -101,6 +105,7 @@ button:hover {
 
 .column {
   padding: 16px;
+  border: 2px solid #6b6245;
 }
 
 .existing-posts {
@@ -117,13 +122,15 @@ button:hover {
 .edit-link {
   color: #6b6245;
   font-weight: bold;
-  width: 12%;
+  width: 15%;
   padding-top: 0;
   padding-left: 12px;
 }
 
 li {
-  border: 2px solid #6b6245;
+  list-style-type: none;
+  /* background-color: #e2e5e3; */
+  /* border: 2px solid #6b6245; */
   border-radius: 5px;
 }
 
@@ -139,19 +146,28 @@ li {
   margin-top: -40px;
   padding: 18px;
   margin-bottom: 2%;
-  
+}
+
+.login-form {
+  background-color: #e2e5e3;
+  padding: 0 70px 50px 70px;
+  border: 2px solid #6b6245;
+  border-radius: 5px;
+  margin: 20px 0 20px 0;
+}
+
+.signup-link {
+  color: #6b6245;
+  font-size: 24px;
+  width: 8%;
+  padding-left: 2px;
 }
 
 
 /* ================================================================= */
 
 
-.signup-link {
-  color: #6b6245;
-  font-size: 32px;
-  line-height: 2;
-  width: 8%;
-}
+
 
 .post-list {
   margin: 0;
@@ -159,15 +175,16 @@ li {
 }
 
 textarea, input {
-  padding: .5%;
+  font-size: 16px;
+  padding: 4px 6px;
   border-radius: 5px;
   border: 1px solid #6b6245;
   width: 100%;
-  height: 40px;
+  height: 100%;
 }
 
 textarea:focus, input:focus {
-  font-size: 22px;
+  font-size: 16px;
   outline: none;
   border: 1px solid #3486eb;
 }

@@ -1,7 +1,7 @@
 async function commentFormHandler(event) {
   event.preventDefault();
 
-  const comment_text = document.querySelector('input[name="comment-body"]').value.trim();
+  const comment_text = document.querySelector('textarea[name="comment-body"]').value.trim();
 
   // looks at post array and makes room for a comment to be added
   const post_id = window.location.toString().split('/')[
