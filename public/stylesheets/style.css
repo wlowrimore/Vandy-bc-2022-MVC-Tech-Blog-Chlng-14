@@ -3,11 +3,39 @@
 }
 
 body, html {
+  width: 100%;
   height: 100%;
   padding: 0;
   margin: 0;
   font-family: sans-serif;
   color: #333;
+}
+
+.wrapper {
+  width: 100%;
+  min-height: 100%;
+  margin: 0 auto; 
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  width: 100%;
+  background-color: #6b6245;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 8px 3%;
+}
+
+header h1 {
+  color:#366845;
+  background-color: #e2e5e3;
+  font-size: 3em;
+  margin-top: 12px;
+  padding: 12px 12px;
+  border: 2px solid #366845;
+  border-radius: 12px;
 }
 
 a {
@@ -22,22 +50,38 @@ a:hover {
   color: #81b655;
 }
 
-.card {
-  margin-bottom: 12px;
-  background-color: #e2e5e3;
-  border: 4px solid #6b6245;
-  border-radius: 6px;
-  padding: 12px 14px 0 14px;
+.post {
+  padding: 12px;
+  margin-bottom: 2%;
+  line-height: 150%;
 }
 
-.form-title {
-  display: flex;
-  color: #e2e5e3;
+.post .title {
   background-color: #6b6245;
-  padding: 24px;
-  margin: -14px;
+  border: 2px solid #6b6245;
+  border-radius: 5px;
+  padding: 12px 12px;
 }
 
+.post .title span {
+  color: #e2e5e3;
+  margin-top: -10px;
+}
+
+.post p {
+  font-size: 18px;
+  padding-left: 12px;
+  padding-bottom: 0;
+  margin-top: 8px;
+  margin-bottom: 4px;
+  background-color:#e2e5e3;
+  border: 1px solid #6b6245;
+  border-radius: 5px;
+}
+
+li {
+  list-style-type: none;
+}
 button {
   color: #e2e5e3;
   font-weight: bold;
@@ -54,6 +98,53 @@ button {
 button:hover {
   background-color: #366845;
 }
+
+.column {
+  padding: 16px;
+}
+
+.existing-posts {
+  padding: 18px;
+}
+
+.existing-posts-list{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding-left: 0;
+}
+
+.edit-link {
+  color: #6b6245;
+  font-weight: bold;
+  width: 12%;
+  padding-top: 0;
+  padding-left: 12px;
+}
+
+li {
+  border: 2px solid #6b6245;
+  border-radius: 5px;
+}
+
+.created-by {
+  margin-top: -12px;
+}
+
+.comments-link {
+  color: #6b6245;
+}
+
+.comment-form {
+  margin-top: -40px;
+  padding: 18px;
+  margin-bottom: 2%;
+  
+}
+
+
+/* ================================================================= */
+
 
 .signup-link {
   color: #6b6245;
@@ -95,66 +186,8 @@ form label {
   display: block;
 }
 
-.wrapper {
-  width: 100%;
-  min-height: 100%;
-  max-width: 1200px;
-  margin: 0 auto; 
-  display: flex;
-  flex-direction: column;
-}
 
-header h1 {
-  color:#366845;
-  background-color: #e2e5e3;
-  font-size: 3em;
-  margin-top: 12px;
-  padding: 12px 12px;
-  border: 2px solid #366845;
-  border-radius: 12px;
-}
-
-header {
-  background-color: #6b6245;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 8px 3%;
-}
-
-.post-card {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  width: 100%;
-  background-color: #e2e5e3;
-  border: 6px solid #6b6245;
-  border-radius: 12px;
-  margin-bottom: 12px;
-}
-
-/* Create Post Form */
-/* ================================================================= */
-.post .title {
-  background-color: #6b6245;
-  border: 2px solid #6b6245;
-  border-radius: 5px;
-  padding: 12px 12px;
-}
-
-.post .title span {
-  align-items: center;
-  color: #e2e5e3;
-  line-height: 0.8;
-}
-
-li {
-  list-style-type: none;
-}
-
-
-/* ================================================================= */
-.create-post {
+/* .create-post {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -166,13 +199,7 @@ li {
   padding: 0 12px 0 12px;
 }
 
-.post-p {
-  font-size: 18px;
-  padding-left: 12px;
-  padding-bottom: 0;
-  margin-top: 0;
-  margin-bottom: 4px;
-}
+
 .post-view {
   color: #000;
   font-size: 22px;
@@ -187,10 +214,7 @@ li {
   margin-bottom: -10px;
 }
 
-main {
-  flex: 1;
-  padding: 2% 4%;
-}
+
 
 .btn-no-style {
   background: none;
@@ -218,16 +242,13 @@ main {
   background-color: #ff643d;
 }
 
-.post {
-  margin-bottom: 2%;
-  line-height: 150%;
-}
 
-.post .title span {
+
+/* .post .title span {
   font-style: italic;
   font-size: 90%;
   color: #7d7d7d;
-}
+} */
 
 .edit-link {
   display: block;
@@ -276,4 +297,4 @@ footer {
   justify-content: center;
   padding: 1%;
   font-size: 110%;
-} 
+}  

@@ -18,14 +18,14 @@
 
 {{!-- displays existing user's posts with edit option --}}
 {{#if posts.length}}
-<section>
+<section class="existing-posts">
   <h2>Your Posts</h2>
-  <ol>
+  <ol class="existing-posts-list">
     {{#each posts as |post|}}
     <li>
       {{> post-info post}}
       <a href="/dashboard/edit/{{post.id}}" class="edit-link">EDIT POST</a>
-    </li>
+    </li><br>
     {{/each}}
   </ol>
 </section>
