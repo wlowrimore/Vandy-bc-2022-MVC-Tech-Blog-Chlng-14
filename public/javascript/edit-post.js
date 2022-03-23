@@ -18,6 +18,7 @@ async function editFormHandler(event) {
     }
   });
 
+  // if everything goes well, return to dashboard
   if (response.ok) {
     document.location.replace('/dashboard');
   } else {
@@ -25,4 +26,6 @@ async function editFormHandler(event) {
   }
 };
 
-document.querySelector('.edit-post-form').addEventListener('submit', editFormHandler);
+document
+  .querySelector('.edit-post-form')
+  .addEventListener('submit', editFormHandler);

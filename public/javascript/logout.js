@@ -7,6 +7,7 @@ async function logout() {
     }
   });
 
+  // if logout successful, return to homepage
   if (response.ok) {
     document.location.replace('/');
   } else {
@@ -14,4 +15,6 @@ async function logout() {
   }
 };
 
-document.querySelector('#logout').addEventListener('click', logout);
+document
+  .querySelector('#logout')
+  .addEventListener('click', logout);

@@ -98,8 +98,8 @@ form label {
 .wrapper {
   width: 100%;
   min-height: 100%;
-  /* max-width: 1200px; */
-  margin: 0 auto;
+  max-width: 1200px;
+  margin: 0 auto; 
   display: flex;
   flex-direction: column;
 }
@@ -134,6 +134,26 @@ header {
 }
 
 /* Create Post Form */
+/* ================================================================= */
+.post .title {
+  background-color: #6b6245;
+  border: 2px solid #6b6245;
+  border-radius: 5px;
+  padding: 12px 12px;
+}
+
+.post .title span {
+  align-items: center;
+  color: #e2e5e3;
+  line-height: 0.8;
+}
+
+li {
+  list-style-type: none;
+}
+
+
+/* ================================================================= */
 .create-post {
   display: flex;
   flex-wrap: wrap;
@@ -256,4 +276,4 @@ footer {
   justify-content: center;
   padding: 1%;
   font-size: 110%;
-}
+} 

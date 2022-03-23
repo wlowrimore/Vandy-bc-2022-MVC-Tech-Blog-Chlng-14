@@ -1,14 +1,16 @@
 async function commentFormHandler(event) {
   event.preventDefault();
 
-  const comment_text = document.querySelector('input[name="comment-body"]').ariaValueMax.trim();
+  const comment_text = document.querySelector('input[name="comment-body"]').value.trim();
 
+  // looks at post array and makes room for a comment to be added
   const post_id = window.location.toString().split('/')[
     window.location.toString().split('/').length - 1
   ];
 
+  // once comment text is created, comments route is called and the comment is added to that post
   if (comment_text) {
-    const response = await fetch('/api/comment', {
+    const response = await fetch('/api/comments', {
       method: 'POST',
       body: JSON.stringify({
         post_id,
@@ -19,11 +21,11 @@ async function commentFormHandler(event) {
       }
     });
 
+    // if everything goes well, comment is posted to assigned post, page reloads with newly posted comment
     if (response.ok) {
       document.location.reload();
     } else {
       alert(response.statusText);
-      document.querySelector('#comment-form').style.display = "block";
     }
   }
 }

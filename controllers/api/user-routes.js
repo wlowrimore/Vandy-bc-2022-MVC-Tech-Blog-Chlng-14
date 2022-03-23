@@ -5,7 +5,7 @@ const {
   Comment
 } = require('../../models');
 const session = require('express-session');
-const myAuth = require('../../utils/auth');
+const withAuth = require('../../utils/auth');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 
@@ -87,19 +87,19 @@ router.post('/', (req, res) => {
 
 // USER LOGIN ROUTE
 router.post('/login', (req, res) => {
-  // because the user's email is unique, we find them by email
+  // looks for username in storage
   User.findOne({
       where: {
-        email: req.body.email
+        username: req.body.username
       }
     }).then(dbUserData => {
       if (!dbUserData) {
         res.status(400).json({
-          message: 'No User Found With That Email!'
+          message: 'No User Found With That username!'
         });
         return;
       }
-      // if user's data found, we verify their password
+      // if username is found, we verify their password
       const validPassword = dbUserData.checkPassword(req.body.password);
 
       if (!validPassword) {
