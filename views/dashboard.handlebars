@@ -4,7 +4,7 @@
   <h2>Your Posts</h2>
   <ol class="existing-posts-list">
     {{#each posts as |post|}}
-    <li class="">
+    <li>
       {{> post-info post}}
       <a href="/dashboard/edit/{{post.id}}" class="edit-link">EDIT POST</a>
     </li><br>
@@ -30,6 +30,10 @@
     </form>
   </div>
 </section>
+
+
+
+
 
 
 
