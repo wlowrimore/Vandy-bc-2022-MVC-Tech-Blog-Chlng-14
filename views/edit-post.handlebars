@@ -4,10 +4,10 @@
   </h2>
   <form class="edit-post-form">
     <div>
-      <input name="post-title" type="text" value="{{post-title}}" />
+      <input name="post-title" type="text" value="{{post.title}}" />
     </div>
     <div>
-      <textarea name="post-text">{{post.post-text}}</textarea>
+      <textarea name="post-text">{{post.post_text}}</textarea>
     </div>
     <div class="created-by">
       This Post Was Created By You On {{format_date post.created_at}}
