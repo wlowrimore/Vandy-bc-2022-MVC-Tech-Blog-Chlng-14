@@ -30,4 +30,4 @@ async function commentFormHandler(event) {
   }
 }
 
-document.querySelector('.comments').addEventListener('submit', commentFormHandler);
+document.querySelector('.comment').addEventListener('submit', commentFormHandler);
