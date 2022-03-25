@@ -50,7 +50,7 @@ The user will need to create their own .env file that should include:<br>
 
 ## You Are <a href= "https://github.com/wlowrimore/Vandy-bc-2022-MVC-Tech-Blog-Chlng-14/tree/main" target= "_blank" rel= "noreferrer">Here</a>!
 
-<br>
+## See It On <a href= "https://serene-springs-59438.herokuapp.com/" target= "_blank" rel= "noreferrer">HEROKU</a>!
 
 ### License:
 
